@@ -257,7 +257,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/25/postName/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/26/https工作原理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="onestar">
@@ -279,8 +279,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/02/25/postName/" itemprop="url">
-                  postName
+                <a class="post-title-link" href="/2017/02/26/https工作原理/" itemprop="url">
+                  HTTPS工作原理
                 </a>
               
             
@@ -296,8 +296,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-25T10:35:53+08:00">
-                2017-02-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-26T16:29:41+08:00">
+                2017-02-26
               </time>
             
 
@@ -315,8 +315,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/02/25/postName/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/25/postName/" itemprop="commentCount"></span>
+                <a href="/2017/02/26/https工作原理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/26/https工作原理/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -344,7 +344,43 @@
       
         
           
-            <h3 id="test-blog"><a href="#test-blog" class="headerlink" title="test blog"></a>test blog</h3>
+            <p>HTTPS : HTTP on TSL/SSL，本质就是在 HTTP 和 TCP/IP 之间添加了一层 TSL/SSL</p>
+<hr>
+<ul>
+<li>1 客户端向服务器端发送自己支持的加密算法。</li>
+<li>2 服务器端从客户端发来的加密算法中选出一组加密算法（包括 HASH 算法、对称加密算法和非对称加密算法），并将公钥证书发回给客户端，公钥证书中包含了网站的地址、加密用的公钥以及证书的颁发机构等。</li>
+<li>3 客户端收到公钥证书后：<ul>
+<li>1）验证证书合法性。数字证书认证机构的公钥已经事先植入到浏览器中，客户端拿到公钥证书后向数字证书认证机验证公钥的真实性。</li>
+<li>2）如果证书合法，或者客户端接受和信任了不合法的证书，客户端会产生一串随机序列号，使用服务器发来的公钥进行加密。这时，一条返回的消息就基本就绪。</li>
+<li>3）最后使用服务器发送的HASH算法，将 2) 中的消息使用随机数序列号加密，生成相应的消息的HASH校验值，与刚才的消息一同发还给服务器。 </li>
+</ul>
+</li>
+<li>4 服务器接受到客户端发来的消息后：<ul>
+<li>1）使用私钥解密上面 2）中用公钥加密的消息，得到客户端产生的随机序列号。</li>
+<li>2）使用该随机序列号和HASH算法对该消息进行加密，验证的到的消息校验值是否与客户端发来的一致。如果一致则说明消息未被篡改，可以信任。</li>
+<li>3）最后，使用该随机序列号，加上之前第 2 步中选择的加密算法，加密一段握手消息同时带上消息的HASH校验值，发还给客户端。</li>
+</ul>
+</li>
+<li>5 客户端收到服务器端的消息后：<ul>
+<li>1）计算消息的HASH校验值是否与发回的消息一致。</li>
+<li>2）检查消息是否为握手消息。</li>
+</ul>
+</li>
+<li>6 目前为SSL握手结束，客户端和服务器端使用握手阶段产生的随机数以及挑选出来的算法进行对称加解密的传输，这时通信会受到 SSL 保护。</li>
+<li>7 从此处开始进行应用层协议的通信，客户端发送 HTTP 请求。</li>
+<li>8 进行应用层协议通信，服务端发送 HTTP 响应。</li>
+<li>9 客户端断开连接。</li>
+</ul>
+<hr>
+<p>SSL 握手阶段使用的是非对称加密算法，传输数据的时候使用对称加密算法。非对称加密算法对计算机的运算要求高、计算过程慢、耗时多。</p>
+<p>以下是一些经常使用的加密算法：</p>
+<ul>
+<li>非对称加密算法：RSA、DSA/DSS</li>
+<li>对称加密算法： AES、3DES</li>
+<li>HASH算法：MD5、SHA1、SHA256</li>
+</ul>
+<p>HTTPS 采用的是混合加密机制。</p>
+
           
         
       
@@ -567,7 +603,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
